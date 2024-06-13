@@ -5,12 +5,12 @@ import Colors from '../../Utils/Colors'
 export default function BusinessListItemSmall({business}) {
   return (
     <View style={styles.container}>
-      <Image source={{uri:business?.image[0]?.url}}
+      <Image source={{uri:business?.images[0]?.url}}
         style={styles.image}
       />
       <View style={styles.infoContainer}>
         <Text style={{fontSize:17, fontFamily:'outfit-medium'}}>{business?.name}</Text>
-        <Text style={{fontSize:13, fontFamily:'outfit-regular', color:Colors.LIGHT_GRAY}}>{business?.contactPerson}</Text>
+        <Text style={{fontSize:13, fontFamily:'outfit-regular', color:Colors.GRAY}}>{business?.contactPerson}</Text>
         <Text style={{
             fontSize:10, 
             fontFamily:'outfit-regular', 
@@ -20,7 +20,7 @@ export default function BusinessListItemSmall({business}) {
             borderRadius:3,
             alignSelf:'flex-start',
             paddingHorizontal:7
-        }}>{business?.category.name}</Text>
+        }}>{business?.category?.name}</Text>
       </View>
     </View>
   )

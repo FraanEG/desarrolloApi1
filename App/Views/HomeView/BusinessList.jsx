@@ -19,10 +19,10 @@ export default function BusinessList() {
     }
 
     return (
-        <View> style={{marginTop:20}}
+        <View style={{marginTop:20}}> 
             <Heading text={'Servicio más recientes'} isViewAll={true} />
             <FlatList
-            data={businessLists}
+            data={businessLists} 
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({item,index})=>(

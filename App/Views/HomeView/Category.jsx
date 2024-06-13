@@ -1,12 +1,15 @@
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import GlobalApi from '../../Utils/GlobalApi'
 import Colors from '../../Utils/Colors'
 import Heading from '../../Components/Heading'
+import { useNavigation } from '@react-navigation/native'
 
 export default function Category() {
 
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState([]);
+    const navigation= useNavigation();
+
     useEffect(()=>{
         getCategories();
     }, [])
@@ -26,7 +29,7 @@ export default function Category() {
         data={categories}
         numColumns={4}
         renderItem={({item,index})=>(
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={()=>navigation.push('business-list', {category:item.name})}>
               <View style={styles.iconContainer}>
                 <Image 
                   source={{uri:item?.icon?.url}}
@@ -34,7 +37,7 @@ export default function Category() {
                 />
               </View>
               <Text style={{fontFamily:'outfit-medium', marginTop:5}}>{item?.name}</Text>
-            </View>
+            </TouchableOpacity>
         )}
       />
     </View>
