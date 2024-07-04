@@ -6,6 +6,7 @@ import BusinessDetailView from '../Views/BusinessDetailView/BusinessDetailView';
 import ClaimsViewAll from '../Views/ClaimsView/ClaimsViewAll';
 import ClaimsViewOne from '../Views/ClaimsView/ClaimsViewOne';
 import ComplaintsViewAll from '../Views/ComplaintsView/ComplaintsViewAll';
+import ComplaintsViewOne from '../Views/ComplaintsView/ComplaintsViewOne';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ export default function HomeNavigation({ route }) {
             <Stack.Screen name='claims' component={ClaimsViewAll} />
             <Stack.Screen name='claim-detail' component={ClaimsViewOne} />
             <Stack.Screen name='complaints' component={ComplaintsViewAll} />
-            <Stack.Screen name='complaint-detail' component={ClaimsViewOne} />
+            <Stack.Screen name='complaint-detail' component={ComplaintsViewOne} />
         </Stack.Navigator>
     )
 }

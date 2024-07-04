@@ -4,11 +4,14 @@ import Header from './Header'
 import Slider from './Slider'
 import Category from './Category'
 import BusinessList from './BusinessList'
+import MyBusiness from './MyBusiness'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export default function HomeView({ route }) {
   const token = route.params.token || {};
   const data = route.params.data || {}
   return (
+    <ScrollView>
       <View>
       <Header route= {{token , data}} />
 
@@ -16,8 +19,10 @@ export default function HomeView({ route }) {
         <Slider/>
         <Category/>
         <BusinessList/>
+        <MyBusiness/>
       </View>
 
       </View>
+    </ScrollView>
   )
 }

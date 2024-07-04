@@ -74,7 +74,7 @@ export default function ComplaintsView() {
             />
 
             <Text>‎ ‎ ‎ ‎ ‎ ‎  </Text>
-            <Button title="Ver todas las Denuncias" onPress={()=>navigation.navigate('complaints')} color={Colors.PRIMARY} />
+            <Button title="Ver todas tus Denuncias" onPress={()=>navigation.navigate('complaints')} color={Colors.PRIMARY} />
         </View>
     );
 }

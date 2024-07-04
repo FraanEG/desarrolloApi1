@@ -14,7 +14,6 @@ const ClaimsViewOne = () => {
         const fetchReclamos = async () => {
             try {
                 const response = await GlobalApi.getReclamos();
-                console.log(id)
                 setReclamo(response.filter(x => x.id === id)[0]);
             } catch (error) {
                 console.error(error);

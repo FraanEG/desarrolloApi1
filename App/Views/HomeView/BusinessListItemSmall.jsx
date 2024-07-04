@@ -3,7 +3,6 @@ import React from 'react'
 import Colors from '../../Utils/Colors'
 
 export default function BusinessListItemSmall({business}) {
-  console.log(business);
   return (
     <View style={styles.container}>
       <Image source={{uri:"https://negozona.com/assets/default_image-61da761b77c76c61f32651429a7c614afb85655f9fbbc45a5a71d698a1c0a283.webp"}}

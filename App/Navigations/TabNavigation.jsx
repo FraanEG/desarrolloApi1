@@ -11,13 +11,13 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Colors from '../Utils/Colors';
 import HomeNavigation from './HomeNavigation';
+import BusinessView from '../Views/BusinessView/BusinessView';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation({ route }) {
     const token = route.params.token || null;
     const data = route.params.data || null;
-    console.log(data);
 
   return (
     <Tab.Navigator screenOptions={{ 
@@ -51,6 +51,14 @@ export default function TabNavigation({ route }) {
             ),
                 tabBarIcon:({color, size})=>(
                     <FontAwesome name="exclamation" size={size} color={color} />
+            )
+            }}/>
+            <Tab.Screen name='business' component={BusinessView} options={{
+                tabBarLabel:({color})=>(
+                    <Text style={{color:color,fontSize:12,marginTop:-7}}>Comercio</Text>
+            ),
+                tabBarIcon:({color, size})=>(
+                    <FontAwesome name="shopping-bag" size={size} color={color} />
             )
             }}/>
             </>

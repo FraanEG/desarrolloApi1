@@ -19,7 +19,6 @@ export default function BusinessListByCategoryScreen({ route }) {
     }
 
     useEffect(()=>{
-        console.log("Category", params.category);
         params&&getBusinessByCategory()
     }, [params])
     return (

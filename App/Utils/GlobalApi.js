@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 export let token = null;
+const wipeToken = () => {token = null}
+
 const baseURL = 'http://10.0.2.2:5000/';
 
 const axiosInstance = axios.create({
@@ -38,7 +40,6 @@ const getComercios = async () => {
 };
 
 const postLoginVecino = async (dni, password) => {
-  console.log(dni, password);
   const response = await axiosInstance.post('/vecino/login', { dni, pw: password });
   token = response.data;
   return response.data;
@@ -87,7 +88,7 @@ const postMovimientoReclamo = async (reclamoId, obj) => {
 
 const postComercio = async (obj) => {
   const response = await axiosInstance.post('/comercio', obj);
-  return response.data;
+ return response.data;
 };
 
 const deleteComercio = async (id) => {
@@ -122,5 +123,6 @@ export default{
   getMeVecino,
   patchUpdateVecino,
   postLoginPersonal,
-  getMePersonal
+  getMePersonal,
+  wipeToken
 }
