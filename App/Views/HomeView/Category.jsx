@@ -11,32 +11,31 @@ export default function Category() {
     const navigation= useNavigation();
 
     useEffect(()=>{
-        getCategories();
+      getRubros();
     }, [])
 
-    const getCategories=()=> {
-        GlobalApi.getCategories().then(resp => 
+    const getRubros=()=> {
+        GlobalApi.getRubros().then(resp => 
           {
-            console.log("resp", resp.categories);
-            setCategories(resp?.categories)
+            setCategories(resp)
           })
     }
 
   return (
     <View style={{marginTop:10}}>
-      <Heading text={'Categorias'} isViewAll={true} />
+      <Heading text={'Categorias'} isViewAll={true} navigateTo={'categories'}/>
       <FlatList
-        data={categories}
+        data={categories.slice(0,4)}
         numColumns={4}
         renderItem={({item,index})=>(
-            <TouchableOpacity style={styles.container} onPress={()=>navigation.push('business-list', {category:item.name})}>
+            <TouchableOpacity style={styles.container} onPress={()=>navigation.push('business-list', {category:item.descripcion, data:item })}>
               <View style={styles.iconContainer}>
                 <Image 
-                  source={{uri:item?.icon?.url}}
+                  source={{uri:'https://cdn-icons-png.flaticon.com/512/3843/3843517.png'}}
                   style={styles.categoryIcon}
                 />
               </View>
-              <Text style={{fontFamily:'outfit-medium', marginTop:5}}>{item?.name}</Text>
+              <Text style={{fontFamily:'outfit-medium', marginTop:5}}>{item?.descripcion}</Text>
             </TouchableOpacity>
         )}
       />

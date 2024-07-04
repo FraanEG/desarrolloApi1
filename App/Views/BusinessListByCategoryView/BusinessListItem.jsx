@@ -12,13 +12,13 @@ export default function BusinessListItem({business}) {
       {
         business:business
       }))}>
-      <Image source={{uri:business?.images[0]?.url}}
+      <Image source={{uri:'https://negozona.com/assets/default_image-61da761b77c76c61f32651429a7c614afb85655f9fbbc45a5a71d698a1c0a283.webp'}}
       style={styles.image}/>
       <View style={styles.subContainer}>
-        <Text style={{fontFamily:'outfit-regular', color:Colors.GRAY, fontSize:15}}>{business.contactPerson}</Text>
-        <Text style={{fontFamily:'outfit-bold', fontSize:17}}>{business.name}</Text>
+        <Text style={{fontFamily:'outfit-regular', color:Colors.GRAY, fontSize:15}}>{business.nombre}</Text>
+        <Text style={{fontFamily:'outfit-bold', fontSize:17}}>{business.telefono || "-"}</Text>
         <Text style={{fontFamily:'outfit-regular', color:Colors.GRAY, fontSize:16}}>
-        <Ionicons name="location-sharp" size={18} color={Colors.PRIMARY} style={{marginRight:20}} />{business.address}</Text>
+        <Ionicons name="location-sharp" size={18} color={Colors.PRIMARY} style={{marginRight:20}} />{business.sitio.calle || "-"}</Text>
       </View>
     </TouchableOpacity>
   )

@@ -6,14 +6,16 @@ import GlobalApi from '../../Utils/GlobalApi';
 import BusinessListItem from './BusinessListItem';
 import Colors from '../../Utils/Colors';
 
-export default function BusinessListByCategoryScreen() {
+export default function BusinessListByCategoryScreen({ route }) {
+    const token = route.params.token || {};
+    const data = route.params.data || {};
     const params = useRoute().params;
     const navigation = useNavigation();
     const [businessLists, setBusinessLists]=useState();
 
     const getBusinessByCategory= ()=> {
-        GlobalApi.getBusinessListsByCategories(params.category)
-        .then(resp=>{setBusinessLists(resp.businessLists)})
+        GlobalApi.getComercios()
+        .then(resp=>{setBusinessLists(resp.filter(x => x.rubroId===data.id))})
     }
 
     useEffect(()=>{

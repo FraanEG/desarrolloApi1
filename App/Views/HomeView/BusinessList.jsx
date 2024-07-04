@@ -7,22 +7,22 @@ import BusinessListItemSmall from './BusinessListItemSmall'
 export default function BusinessList() {
     const [businessLists, setBusinessLists] = useState([])
     useEffect(()=>{
-        getBusinessLists();
+        getComercios();
     }, [])
 
-    const getBusinessLists=()=> {
-        GlobalApi.getBusinessLists().then(resp => 
+    const getComercios=()=> {
+        GlobalApi.getComercios().then(resp => 
           {
-            console.log("resp", resp.businessLists);
-            setBusinessLists(resp?.businessLists)
+            console.log("COMERCIOS", resp);
+            setBusinessLists(resp)
           })
     }
 
     return (
         <View style={{marginTop:20}}> 
-            <Heading text={'Servicio más recientes'} isViewAll={true} />
+            <Heading text={'Comercios más recientes'} isViewAll={true} />
             <FlatList
-            data={businessLists} 
+            data={businessLists?.sort((a, b) => new Date(b.fechaIngreso) - new Date(a.fechaIngreso)).slice(0,5) || []}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({item,index})=>(

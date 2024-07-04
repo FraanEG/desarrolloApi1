@@ -2,28 +2,15 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import * as WebBrowser from "expo-web-browser";
 import React from 'react'
 import Colors from '../../Utils/Colors';
-import { useOAuth } from "@clerk/clerk-expo";
-import { Button } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 import { useWarmUpBrowser } from "../../Hooks/useWarmUpBrowser";
 
 WebBrowser.maybeCompleteAuthSession();
 export default function Login() {
   useWarmUpBrowser();
-  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
-  const onPress = React.useCallback(async () => {
-    try {
-      const { createdSessionId, signIn, signUp, setActive } =
-        await startOAuthFlow();
 
-      if (createdSessionId) {
-        setActive({ session: createdSessionId });
-      } else {
-        // Use signIn or signUp for next steps such as MFA
-      }
-    } catch (err) {
-      console.error("OAuth error", err);
-    }
-  }, []);
+  const navigation = useNavigation();
+
   return (
     <View style={{alignItems:'center'}}>
       <Image source={require('./../../../assets/images/login.png')}
@@ -44,7 +31,7 @@ export default function Login() {
             marginTop:20}}> Mejor aplicación para encontrar servicios profesionales en línea! 
         </Text>
 
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('loginUser')}>
           <Text style={{textAlign:'center', fontSize:17, color:Colors.PRIMARY}}>Empecemos!</Text>
         </TouchableOpacity>
       </View>

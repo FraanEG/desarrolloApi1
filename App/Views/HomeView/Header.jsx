@@ -1,29 +1,24 @@
 import { View, Text, StyleSheet, Image, TextInput } from 'react-native'
 import React from 'react'
-import { useUser } from '@clerk/clerk-expo'
 import Colors from '../../Utils/Colors';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Header() {
-    const {user,isLoading}= useUser();
-  return user&&(
+export default function Header({ route }) {
+    const token = route?.token || {};
+    const data = route?.data || {};
+  return (
     <View style={styles.container}>
         <View style={styles.profileMainContainer}>
             <View style={styles.profileContainer}>
                 <Image
-                    source={{uri:user?.imageUrl}}
+                    source= {{ uri: 'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' }}
                     style={styles.userImage}
                 />
                 <View>
-                    <Text style={{color:Colors.WHITE, fontFamily:'outfit-regular'}}>Bienvenido,</Text>
-                    <Text style={{color:Colors.WHITE, fontWeight:'bold', fontSize:20, fontFamily:'outfit-medium'}}>{user?.fullName}</Text>
+                    <Text style={{color:Colors.WHITE, fontFamily:'outfit-regular'}}>Bienvenid@,</Text>
+                    <Text style={{color:Colors.WHITE, fontWeight:'bold', fontSize:20, fontFamily:'outfit-medium'}}>{data?.nombre} {data?.apellido}</Text>
                 </View>
             </View>
-            <FontAwesome name="bookmark-o" size={27} color={Colors.WHITE} />
-        </View>
-        <View style={styles.searchBarContainer}>
-            <TextInput placeholder='Buscar' style={styles.textInput}/>
-            <FontAwesome style={styles.searchButton} name="search" size={24} color={Colors.PRIMARY} />
         </View>
     </View>
   )

@@ -14,13 +14,17 @@ import HomeNavigation from './HomeNavigation';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+export default function TabNavigation({ route }) {
+    const token = route.params.token || null;
+    const data = route.params.data || null;
+    console.log(data);
+
   return (
     <Tab.Navigator screenOptions={{ 
         headerShown: false,
         tabBarActiveTintColor: Colors.PRIMARY
     }}>
-        <Tab.Screen name='home' component={HomeNavigation} options={{
+        <Tab.Screen name='home' component={HomeNavigation} initialParams={{ token: token, data: data }} options={{
             tabBarLabel:({color})=>(
                 <Text style={{color:color,fontSize:12,marginTop:-7}}>Inicio</Text>
         ),
@@ -28,31 +32,30 @@ export default function TabNavigation() {
                 <Entypo name="home" size={size} color={color}/>
         )
         }}/>
-        <Tab.Screen name='booking' component={BookingView} options={{
-            tabBarLabel:({color})=>(
-                <Text style={{color:color,fontSize:12,marginTop:-7}}>Reservas</Text>
-        ),
-            tabBarIcon:({color, size})=>(
-                <FontAwesome name="book" size={size} color={color} />
-        )
-        }}/>
-        <Tab.Screen name='claim' component={ClaimsView} options={{
-            tabBarLabel:({color})=>(
-                <Text style={{color:color,fontSize:12,marginTop:-7}}>Reclamos</Text>
-        ),
-            tabBarIcon:({color, size})=>(
-                <FontAwesome name="hand-paper-o" size={size} color={color} />
-        )
-        }}/>
-        <Tab.Screen name='complaint' component={ComplaintsView} options={{
-            tabBarLabel:({color})=>(
-                <Text style={{color:color,fontSize:12,marginTop:-7}}>Denuncias</Text>
-        ),
-            tabBarIcon:({color, size})=>(
-                <FontAwesome name="exclamation" size={size} color={color} />
-        )
-        }}/>
-        <Tab.Screen name='profile' component={ProfileView} options={{
+        {token&&(
+        <>
+            <Tab.Screen name='claim' component={ClaimsView} options={{
+                tabBarLabel:({color})=>(
+                    <Text style={{color:color,fontSize:12,marginTop:-7}}>Reclamos</Text>
+            ),
+                tabBarIcon:({color, size})=>(
+                    <FontAwesome name="hand-paper-o" size={size} color={color} />
+            )
+            }}/>
+        </>)}
+        {token&&!data.id&&(
+            <>
+            <Tab.Screen name='complaint' component={ComplaintsView} options={{
+                tabBarLabel:({color})=>(
+                    <Text style={{color:color,fontSize:12,marginTop:-7}}>Denuncias</Text>
+            ),
+                tabBarIcon:({color, size})=>(
+                    <FontAwesome name="exclamation" size={size} color={color} />
+            )
+            }}/>
+            </>
+        )}
+        <Tab.Screen name='profile' component={ProfileView} initialParams={{ token: token, data: data }} options={{
             tabBarLabel:({color})=>(
                 <Text style={{color:color,fontSize:12,marginTop:-7}}>Perfil</Text>
         ),

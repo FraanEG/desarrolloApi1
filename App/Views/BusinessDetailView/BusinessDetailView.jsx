@@ -21,15 +21,15 @@ export default function BusinessDetailView() {
       <TouchableOpacity style={styles.backButtonContainer} onPress={()=>navigation.goBack()}>
         <AntDesign name="arrowleft" size={25} color="black" />
       </TouchableOpacity>
-      <Image source={{uri: business?.images[0]?.url}}
+      <Image source={{uri: 'https://negozona.com/assets/default_image-61da761b77c76c61f32651429a7c614afb85655f9fbbc45a5a71d698a1c0a283.webp'}}
       style={{width:'100%',height:300}}/>  
       <View style={styles.infoContainer}>
-        <Text style={{fontFamily:'outfit-bold', fontSize:25}}>{business?.name}</Text>
+        <Text style={{fontFamily:'outfit-bold', fontSize:25}}>{business?.nombre}</Text>
         <View style={styles.subContainer}> 
-          <Text style={{fontFamily:'outfit-medium', color:Colors.PRIMARY, fontSize:22}}>{business?.contactPerson}</Text>
-          <Text style={{color:Colors.PRIMARY, backgroundColor:Colors.PRIMARY_LIGHT, padding:3, borderRadius:5, fontSize:14}}>{business?.category.name}</Text>
+          <Text style={{fontFamily:'outfit-medium', color:Colors.PRIMARY, fontSize:22}}>{business?.telefono || "-"}</Text>
+          <Text style={{color:Colors.PRIMARY, backgroundColor:Colors.PRIMARY_LIGHT, padding:3, borderRadius:5, fontSize:14}}>{business?.rubro.descripcion}</Text>
         </View>
-        <Text style={{fontSize:18,fontFamily:'outfit-regular',color:Colors.GRAY}}><Ionicons name="location-sharp" size={20} color={Colors.PRIMARY} style={{marginRight:20}}/> {business?.address} </Text>
+        <Text style={{fontSize:18,fontFamily:'outfit-regular',color:Colors.GRAY}}><Ionicons name="location-sharp" size={20} color={Colors.PRIMARY} style={{marginRight:20}}/> {business?.sitio.calle || "-"} </Text>
         <View style={{borderWidth:0.5, borderColor:Colors.GRAY, marginTop:20, marginBottom:20}}></View>
         
         <BusinessAboutMe business={business}/>

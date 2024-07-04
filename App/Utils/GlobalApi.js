@@ -1,93 +1,126 @@
-import { gql, request } from 'graphql-request'
+import axios from 'axios';
 
-const MASTER_URL = "https://api-sa-east-1.hygraph.com/v2/clx1w5qht03o207uq3tyceq3l/master" 
+export let token = null;
+const baseURL = 'http://10.0.2.2:5000/';
 
-const getSliders= async() => {
-    const query = gql`
-    query GetSliders {
-        sliders {
-          id
-          name
-          image {
-            id
-            url
-          }
-        }
-      }
-    `
-    const result = await request(MASTER_URL, query);
-    return result;
-}
+const axiosInstance = axios.create({
+  baseURL
+});
 
-const getBusinessLists= async() => {
-  const query = gql`
-  query GetBusinessList {
-    businessLists {
-      id
-      name
-      email
-      contactPerson
-      category {
-        name
-      }
-      address
-      about
-      images {
-        url
-      }
-    }
-  }
-  `
+axiosInstance.interceptors.request.use(
+  config => {
+    if (token) 
+      config.headers.Authorization = `Bearer ${token}`;
 
-  const result = await request(MASTER_URL, query);
-  return result;
-}
+    return config;
+  },
+  error => Promise.reject(error)
+);
 
-const getCategories= async() => {
-    const query = gql`
-    query GetCategory {
-        categories {
-          id
-          name
-          icon {
-            url
-          }
-        }
-      } 
-    `
+const getBarrios = async () => {
+  const response = await axiosInstance.get('/vecino/barrios');
+  return response.data;
+};
 
-    const result = await request(MASTER_URL, query);
-    return result;
-}
+const getRubros = async () => {
+  const response = await axiosInstance.get('/comercio/rubros');
+  return response.data;
+};
 
+const getReclamos = async () => {
+  const response = await axiosInstance.get('/reclamo');
+  return response.data;
+};
 
-const getBusinessListsByCategories= async(category) => {
-  const query = gql`
-  query GetBusinessList {
-    businessLists(where: {category: {name: "`+category+`"}}) {
-      id
-      name
-      email
-      contactPerson
-      category {
-        name
-      }
-      address
-      about
-      images {
-        url
-      }
-    }
-  }
-  `
+const getComercios = async () => {
+  const response = await axiosInstance.get('/comercio');
+  return response.data;
+};
 
-  const result = await request(MASTER_URL, query);
-  return result;
-}
+const postLoginVecino = async (dni, password) => {
+  console.log(dni, password);
+  const response = await axiosInstance.post('/vecino/login', { dni, pw: password });
+  token = response.data;
+  return response.data;
+};
+
+const getMeVecino = async () => {
+  const response = await axiosInstance.get('/vecino/me');
+  return response.data;
+};
+
+const patchUpdateVecino = async (password) => {
+  const response = await axiosInstance.patch(`/vecino/${password}`);
+  return response.data;
+};
+
+const postLoginPersonal = async (legajo, password) => {
+  const response = await axiosInstance.post('/personal/login', { legajo, pw: password });
+  token = response.data;
+  return response.data;
+};
+
+const getMePersonal = async () => {
+  const response = await axiosInstance.get('/personal/me');
+  return response.data;
+};
+
+const postDenuncia = async (obj) => {
+  const response = await axiosInstance.post('/denuncia', obj);
+  return response.data;
+};
+
+const postMovimientoDenuncia = async (denunciaId, obj) => {
+  const response = await axiosInstance.post(`/denuncia/${denunciaId}`, obj);
+  return response.data;
+};
+
+const postReclamo = async (obj) => {
+  const response = await axiosInstance.post('/reclamo', obj);
+  return response.data;
+};
+
+const postMovimientoReclamo = async (reclamoId, obj) => {
+  const response = await axiosInstance.post(`/denuncia/${reclamoId}`, obj);
+  return response.data;
+};
+
+const postComercio = async (obj) => {
+  const response = await axiosInstance.post('/comercio', obj);
+  return response.data;
+};
+
+const deleteComercio = async (id) => {
+  const response = await axiosInstance.delete(`/comercio/${id}`);
+  return response.data;
+};
+
+const postOferta = async (comercioId, obj) => {
+  const response = await axiosInstance.post(`/comercio/${comercioId}`, obj);
+  return response.data;
+};
+
+const deleteOferta = async (ofertaId) => {
+  const response = await axiosInstance.delete(`/comercio/oferta/${ofertaId}`);
+  return response.data;
+};
 
 export default{
-    getSliders,
-    getCategories,
-    getBusinessLists,
-    getBusinessListsByCategories
+  getBarrios,
+  getRubros,
+  getReclamos,
+  getComercios,
+  postDenuncia,
+  postMovimientoDenuncia,
+  postReclamo,
+  postMovimientoReclamo,
+  postComercio,
+  deleteComercio,
+  postOferta,
+  deleteOferta,
+  postLoginVecino,
+  getMeVecino,
+  patchUpdateVecino,
+  postLoginPersonal,
+  getMePersonal
 }

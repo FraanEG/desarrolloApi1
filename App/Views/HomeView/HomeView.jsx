@@ -5,11 +5,12 @@ import Slider from './Slider'
 import Category from './Category'
 import BusinessList from './BusinessList'
 
-export default function HomeView() {
+export default function HomeView({ route }) {
+  const token = route.params.token || {};
+  const data = route.params.data || {}
   return (
-    <View>
-
-      <Header/>
+      <View>
+      <Header route= {{token , data}} />
 
       <View style= {{padding:20}}>
         <Slider/>
@@ -17,6 +18,6 @@ export default function HomeView() {
         <BusinessList/>
       </View>
 
-    </View>
+      </View>
   )
 }

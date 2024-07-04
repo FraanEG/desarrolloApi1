@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 
-export default function Heading({text, isViewAll = false}) {
+export default function Heading({text, isViewAll = false, navigateTo = null}) {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.heading}> {text} </Text>
-      {isViewAll&& <Text> Ver todo </Text>}
+      {isViewAll&&<TouchableOpacity OnPress={()=> navigation.navigate(navigateTo)}><Text>Ver todo</Text></TouchableOpacity>}
     </View>
   )
 }

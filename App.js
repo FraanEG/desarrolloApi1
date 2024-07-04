@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './App/Views/LoginView/Login';
-import { SignedIn, SignedOut, ClerkProvider } from '@clerk/clerk-expo';
+import LoginUser from './App/Views/LoginView/LoginUser';
+import LoginInspector from './App/Views/LoginView/LoginInspector';
 import * as SecureStore from "expo-secure-store";
 import { NavigationContainer } from '@react-navigation/native';
-import TabNavigation from './App/Navigations/TabNavigation';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
+import TabNavigation from './App/Navigations/TabNavigation';
+import Category from './App/Views/HomeView/Category';
+import Categories from './App/Views/HomeView/Categories';
 
 const tokenCache = {
   async getToken(key) {
@@ -24,6 +28,8 @@ const tokenCache = {
   },
 };
 
+const Stack = createStackNavigator();
+
 export default function App() {
 
   const [fontsLoaded, fontError] = useFonts({
@@ -33,21 +39,21 @@ export default function App() {
   });
 
   return (
-    <ClerkProvider
-      tokenCache={tokenCache}
-      publishableKey='pk_test_YXB0LXNoZWVwLTMxLmNsZXJrLmFjY291bnRzLmRldiQ'>
-      <View style={styles.container}>
-        <SignedIn>
-          <NavigationContainer>
-            <TabNavigation/>
-          </NavigationContainer>
-        </SignedIn>
-        <SignedOut>
-          <Login />
-        </SignedOut>
-        <StatusBar style="auto" />
-      </View>
-    </ClerkProvider>
+    <View style={styles.container}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{
+            headerShown:false
+        }}>
+          <Stack.Screen name="login" component={Login} />
+          <Stack.Screen name="loginUser" component={LoginUser} />
+          <Stack.Screen name="loginInspector" component={LoginInspector} />
+          <Stack.Screen name="homeView" component={TabNavigation} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <NavigationContainer>
+    </NavigationContainer>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

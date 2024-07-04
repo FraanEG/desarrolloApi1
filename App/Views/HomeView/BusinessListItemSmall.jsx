@@ -3,14 +3,15 @@ import React from 'react'
 import Colors from '../../Utils/Colors'
 
 export default function BusinessListItemSmall({business}) {
+  console.log(business);
   return (
     <View style={styles.container}>
-      <Image source={{uri:business?.images[0]?.url}}
+      <Image source={{uri:"https://negozona.com/assets/default_image-61da761b77c76c61f32651429a7c614afb85655f9fbbc45a5a71d698a1c0a283.webp"}}
         style={styles.image}
       />
       <View style={styles.infoContainer}>
-        <Text style={{fontSize:17, fontFamily:'outfit-medium'}}>{business?.name}</Text>
-        <Text style={{fontSize:13, fontFamily:'outfit-regular', color:Colors.GRAY}}>{business?.contactPerson}</Text>
+        <Text style={{fontSize:17, fontFamily:'outfit-medium'}}>{business?.nombre}</Text>
+        <Text style={{fontSize:13, fontFamily:'outfit-regular', color:Colors.GRAY}}>{business?.vecino?.nombre}</Text>
         <Text style={{
             fontSize:10, 
             fontFamily:'outfit-regular', 
@@ -20,7 +21,7 @@ export default function BusinessListItemSmall({business}) {
             borderRadius:3,
             alignSelf:'flex-start',
             paddingHorizontal:7
-        }}>{business?.category?.name}</Text>
+        }}>{business?.rubro?.descripcion}</Text>
       </View>
     </View>
   )
